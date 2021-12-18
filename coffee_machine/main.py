@@ -35,24 +35,21 @@ resources = {
 
 def menu_selection():
     customer_order = str.lower(input('What would you like? (espresso/latte/cappuccino) '))
-    for key in MENU:
-        if customer_order == 'off':
-            print('Powering Down...')
-            sys.exit()
+    if customer_order in MENU.keys():
+        return customer_order
+    elif customer_order == 'off':
+        print('Powering Down...')
+        sys.exit()
+    elif customer_order == 'report':
+        print("REPORT\n-----")
+        print(f"Water: {resources['water']}ml")
+        print(f"Milk: {resources['milk']}ml")
+        print(f"Coffee: {resources['coffee']}ml")
+        sys.exit()
+    else:
+        print('Invalid Selection, please try again.')
+        menu_selection()
 
-        elif customer_order == 'report':
-            print("REPORT\n-----")
-            print(f"Water: {resources['water']}ml")
-            print(f"Milk: {resources['milk']}ml")
-            print(f"Coffee: {resources['coffee']}ml")
-            sys.exit()
-
-        elif customer_order not in key:
-            print('Invalid Selection, please try again.')
-            menu_selection()
-    
-        else:
-            return customer_order
 
 if __name__ == '__main__':
     
