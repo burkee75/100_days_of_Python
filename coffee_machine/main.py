@@ -36,16 +36,17 @@ resources = {
 def menu_selection():
     customer_order = input("What would you like? (espresso/latte/cappuccino) ")
     coffee_types = {"espresso", "latte", "cappuccino"}
-    if customer_order == "off":
-        print("Powering Down...")
-        sys.exit()
+    for key in MENU:
+        if customer_order == "off":
+            print("Powering Down...")
+            sys.exit()
 
-    elif customer_order not in coffee_types:
-        print("Invalid Selection, please try again.")
-        menu_selection()
+        elif customer_order not in key:
+            print("Invalid Selection, please try again.")
+            menu_selection()
     
-    else:
-        return customer_order
+        else:
+            return customer_order
 
 if __name__ == "__main__":
     print("☕️ Welcome to the Coffee Pot!")
