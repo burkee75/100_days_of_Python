@@ -23,7 +23,9 @@ resources to make that drink.
 b. E.g. if Latte requires 200ml water but there is only 100ml left in the machine. It should
 not continue to make the drink but print: “​Sorry there is not enough water.​”
 c. The same should happen if another resource is depleted, e.g. milk or coffee.
-5. Process coins.
+
+5. Process payment. This machine is coin operated accepting pennies, nickles, dimes, and/or quarters. To make things simple ask the user to input how many of each coin they are placing into the machine. 
+
 a. If there are sufficient resources to make the drink selected, then the program should
 prompt the user to insert coins.
 b. Remember that quarters = $0.25, dimes = $0.10, nickles = $0.05, pennies = $0.01
