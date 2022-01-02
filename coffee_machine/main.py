@@ -49,15 +49,31 @@ def ingredients_available(menu_item):
             return False
         return True
 
+def sales_register(menu_item):
+
+    # TODO: return specific coin amounts. Ex. 3 quarters, 1 nickle in change.
+
+    item_cost = float(MENU[menu_item]['cost'])
+
+    # for debugging...
+    print(f"The ordered item is a '{menu_item}' and it costs ${item_cost}")
+
+    customer_payment_amount = float(input("Enter payment:\n"))
+    # TODO: add exception checking for string input. 
+    
+    if item_cost > customer_payment_amount:
+        "Insufficent Funds. Exiting..."
+        sys.exit()
+    else:
+        customer_change_amount = "{:.2f}".format(customer_payment_amount - item_cost)
+        print(f"Your change is: ${customer_change_amount}\n")
+        return customer_change_amount
+
 def menu_selection():
     customer_order = str.lower(input('What would you like? (espresso/latte/cappuccino) '))
     # check that the order is an item from the list MENU. If not and also not a special command return error.
     if customer_order in MENU.keys():
-        if ingredients_available(customer_order):
-            menu_item_cost = "{:.2f}".format(MENU[customer_order]['cost'])
-            print(f"The cost for {customer_order} is ${menu_item_cost}")
-        else:
-            sys.exit()
+        sales_register(customer_order)
 
     elif customer_order == 'off':
         print('Powering Down...')
