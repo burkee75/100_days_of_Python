@@ -44,11 +44,17 @@ vending_cash = {
 
 def ingredients_available(menu_item):
     """Accepts a dictionary of ingedients and checks if the machine has enough to make the drink"""
+
     for item in MENU[menu_item]['ingredients']:
-        if resources[item] <= MENU[menu_item]['ingredients'][item]:
+        if resources[item] < MENU[menu_item]['ingredients'][item]:
             print(f"There is not enough {item} to make your order.")
             return False
-        return True
+        else:
+            for item in MENU[menu_item]['ingredients']:
+                resources[item] -= MENU[menu_item]['ingredients'][item]
+                # for debugging
+            print(resources)
+            return True
 
 def sales_register(menu_item):
 
@@ -105,6 +111,7 @@ def menu_selection():
     # check that the order is an item from the list MENU. If not and also not a special command return error.
     if customer_order in MENU.keys():
         sales_register(customer_order)
+        ingredients_available(customer_order)
 
     elif customer_order == 'off':
         print('Powering Down...')
