@@ -1,4 +1,5 @@
 import sys
+from typing import ItemsView
 
 # Menu provided by instructor
 MENU = {
@@ -51,23 +52,53 @@ def ingredients_available(menu_item):
 
 def sales_register(menu_item):
 
-    # TODO: return specific coin amounts. Ex. 3 quarters, 1 nickle in change.
-
     item_cost = float(MENU[menu_item]['cost'])
 
     # for debugging...
-    print(f"The ordered item is a '{menu_item}' and it costs ${item_cost}")
+    #print(f"The ordered item is a '{menu_item}' and it costs ${item_cost}")
 
-    customer_payment_amount = float(input("Enter payment:\n"))
     # TODO: add exception checking for string input. 
-    
-    if item_cost > customer_payment_amount:
+    quarters_inserted = float(input("Please insert some quarters: "))
+    deposited_amount = quarters_inserted * 0.25
+    if deposited_amount < item_cost:
+        print(f"Paid Amount: ${deposited_amount}. Total Due: ${item_cost}.")
+        dimes_inserted = float(input("Please insert some dimes:"))
+        deposited_amount += dimes_inserted * 0.10
+
+        if deposited_amount < item_cost:
+            print(f"Paid Amount: ${deposited_amount}. Total Due: ${item_cost}.")
+            nickles_inserted = float(input("Please insert some nickles:"))
+            deposited_amount += nickles_inserted * 0.05
+
+            if deposited_amount < item_cost:
+                print(f"Paid Amount: ${deposited_amount}. Total Due: ${item_cost}.")
+                pennies_inserted = float(input("Please insert some pennies:"))
+                deposited_amount += pennies_inserted * 0.01
+
+                if deposited_amount < item_cost:
+                    print(f"Insufficent Funds. Exiting...")
+                    return False
+                
+                else:
+                    print(f"Amount Paid: ${deposited_amount}")
+            
+            else:
+                print(f"Amount Paid: ${deposited_amount}")
+        
+        else:
+            print(f"Amount Paid: ${deposited_amount}")
+   
+    else:
+        print(f"Amount Paid: ${deposited_amount}")
+
+    if item_cost > deposited_amount:
         "Insufficent Funds. Exiting..."
         sys.exit()
     else:
-        customer_change_amount = "{:.2f}".format(customer_payment_amount - item_cost)
+        customer_change_amount = "{:.2f}".format(deposited_amount - item_cost)
         print(f"Your change is: ${customer_change_amount}\n")
-        return customer_change_amount
+        # TODO: need to add to total machine profit
+        return True
 
 def menu_selection():
     customer_order = str.lower(input('What would you like? (espresso/latte/cappuccino) '))
